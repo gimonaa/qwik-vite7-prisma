@@ -8,7 +8,7 @@ async function main() {
   // const delteversion = await prisma.version.deleteMany({})
   // const version = await prisma.version.createMany({
   //   data: [
-  //     { version: '0.0.2', descrizione: 'prima versione di preweb3', data: new Date('2024-02-01') },
+  //     // { version: '0.0.2', descrizione: 'prima versione di preweb3', data: new Date('2024-02-01') },
   //     { version: '0.0.3', descrizione: 'implementazione menu laterale', data: new Date('2024-02-13')  },
   //     { version: '0.0.4', descrizione: 'gestione ruoli utenti', data: new Date('2024-02-20') },
   //     { version: '0.0.5', descrizione: 'creazione interfacce gestione utenti', data: new Date('2024-03-10') },
@@ -52,37 +52,37 @@ async function main() {
   //     { version: '1.1.2', descrizione: '[stazioni] visualizzazione dati statistici con mos e previlong', data: new Date('2025-06-24') },
   //     { version: '1.1.3', descrizione: '[QWIK] aggiornamento alla versione 2.0.0-beta.4', data: new Date('2025-07-03') },
   //     { version: '1.1.4', descrizione: '[edit] prima versione interfaccia editing richiesta extrasondaggio', data: new Date('2025-07-18') },
-  //     { version: '1.1.5', descrizione: '[mda] utilizzo della mda di NAS', data: new Date('2025-07-22') },
-  //     { version: '1.1.6', descrizione: '[radar] visualizzazione orecchiette Radar VMI Fossalon', data: new Date('2025-07-29') },
-  //   ],
+    //   { version: '1.1.5', descrizione: '[mda] utilizzo della mda di NAS', data: new Date('2025-07-22') },
+    //   { version: '1.1.6', descrizione: '[radar] visualizzazione orecchiette Radar VMI Fossalon', data: new Date('2025-07-29') },
+    // ],
   //   skipDuplicates: true,
   // })
 
   const roles = await prisma.role.createMany({
     data: [
-      { desc: 'ADMIN' },
-      { desc: 'USER' },
-      { desc: 'PREVIS' },
-      { desc: 'CFD' },
-      { desc: 'OSSERV' },
-      { desc: 'CLIMA' },
-      { desc: 'NIVO' },
-      { desc: 'PCR' },
-      { desc: 'AIM' },
+      // { desc: 'ADMIN' },
+      // { desc: 'USER' },
+      // { desc: 'PREVIS' },
+      // { desc: 'CFD' },
+      // { desc: 'OSSERV' },
+      // { desc: 'CLIMA' },
+      // { desc: 'NIVO' },
+      // { desc: 'PCR' },
+      // { desc: 'AIM' },
     ],
     // skipDuplicates: true,
   })
 
-  // const user = await prisma.user.upsert({
-  //   where: { email: "admin@user.it" },
-  //   update: {},
-  //   create: {
-  //     name: 'admin',
-  //     email: 'admin@user.it',
-  //     password: '3c1b11c27d718af7114bedfa4aa27f3ab09017796350101a4bd94c7e18bffff6',  // 12345678
-  //     role: 'ADMIN'
-  //   },
-  // })
+  const user = await prisma.user.upsert({
+    where: { email: "admin@user.it" },
+    update: {},
+    create: {
+      name: 'admin',
+      email: 'admin@user.it',
+      password: '3c1b11c27d718af7114bedfa4aa27f3ab09017796350101a4bd94c7e18bffff6',  // 12345678
+      role: 'ADMIN'
+    },
+  })
 
   // const deleteDeltaSec = await prisma.deltaSec.deleteMany({})
   // const sec = await prisma.deltaSec.createMany({
@@ -97,9 +97,9 @@ async function main() {
   //   ]
   // }) 
 
-  const deleteMenu = await prisma.menu.deleteMany({})
-  const menu = await prisma.menu.createMany({
-    data: [
+  // const deleteMenu = await prisma.menu.deleteMany({})
+  // const menu = await prisma.menu.createMany({
+  //   data: [
       // MODELLI
       // { id: 100 , order: 100, title: 'modelli' },
       // { id: 101 , order: 101, title: 'deterministici', url: "/modelli/deterministici/",  parrentMenuId: 100, permit : "PREVIS,OSSERV,CLIMA,AIM" },
@@ -195,33 +195,33 @@ async function main() {
       // { id: 7003 , order: 7003, title: 'previsioni-1', url: "/edit/previsioni/test1/0/", parrentMenuId: 7000 , permit: "PREVIS,ADMIN" },
       // { id: 7004 , order: 7004, title: 'previsioni-2', url: "/edit/previsioni/test2/", parrentMenuId: 7000 , permit: "PREVIS,ADMIN" },
 
-      // ADMIN
-      { id: 9000 , order: 9000, title: 'admin' , permit: "ADMIN"},
-      { id: 9001 , order: 9001, title: 'lista utenti', url: "/admin/user/list/", parrentMenuId: 9000 , permit: "ADMIN" },        
-      { id: 9002 , order: 9002, title: 'crea utente', url: "/admin/user/create/", parrentMenuId: 9000 , permit: "ADMIN" },
-      { id: 9003 , order: 9003, title: 'cronologia utenti', url: "/admin/user/history/", parrentMenuId: 9000 , permit: "ADMIN" },
-      { id: 9004 , order: 9004, title: 'cronologia email', url: "/admin/email/history/", parrentMenuId: 9000 , permit: "ADMIN" },
+  //     // ADMIN
+  //     { id: 9000 , order: 9000, title: 'admin' , permit: "ADMIN"},
+  //     { id: 9001 , order: 9001, title: 'lista utenti', url: "/admin/user/list/", parrentMenuId: 9000 , permit: "ADMIN" },        
+  //     { id: 9002 , order: 9002, title: 'crea utente', url: "/admin/user/create/", parrentMenuId: 9000 , permit: "ADMIN" },
+  //     { id: 9003 , order: 9003, title: 'cronologia utenti', url: "/admin/user/history/", parrentMenuId: 9000 , permit: "ADMIN" },
+  //     { id: 9004 , order: 9004, title: 'cronologia email', url: "/admin/email/history/", parrentMenuId: 9000 , permit: "ADMIN" },
 
-      // // UTILS
-      // { id: 8000 , order: 8000, title: 'utils', permit: "PREVIS,OSSERV,CLIMA" },
-      // { id: 8001 , order: 8001, title: 'qr-code', url: "/utils/qr-code/", parrentMenuId: 8000 , permit: "PREVIS,OSSERV,CLIMA" },
-      // { id: 8002 , order: 8002, title: 'monitor-prodotti', url: "/utils/monitor-prodotti/", parrentMenuId: 8000 , permit: "PREVIS" },
+  //     // // UTILS
+  //     // { id: 8000 , order: 8000, title: 'utils', permit: "PREVIS,OSSERV,CLIMA" },
+  //     // { id: 8001 , order: 8001, title: 'qr-code', url: "/utils/qr-code/", parrentMenuId: 8000 , permit: "PREVIS,OSSERV,CLIMA" },
+  //     // { id: 8002 , order: 8002, title: 'monitor-prodotti', url: "/utils/monitor-prodotti/", parrentMenuId: 8000 , permit: "PREVIS" },
 
-      // // TEST
-      // { id: 9905 , order: 9905, title: 'test', permit: "ADMIN" },
-      // { id: 9906 , order: 9906, title: 'invio email', url: "/test/email/", parrentMenuId: 9905 , permit: "ADMIN" },
-      // { id: 9907 , order: 9907, title: 'geolocalizzaizone', url: "/test/geolocalizzaizone/", parrentMenuId: 9905 , permit: "ADMIN" },
-      // { id: 9908 , order: 9908, title: 'mapserver', url: "/test/mapserver/", parrentMenuId: 9905 , permit: "ADMIN" },
-      // // { id: 9909 , order: 9909, title: 'QR-code', url: "/test/qr-code/", parrentMenuId: 9905 , permit: "ADMIN" },
+  //     // // TEST
+  //     // { id: 9905 , order: 9905, title: 'test', permit: "ADMIN" },
+  //     // { id: 9906 , order: 9906, title: 'invio email', url: "/test/email/", parrentMenuId: 9905 , permit: "ADMIN" },
+  //     // { id: 9907 , order: 9907, title: 'geolocalizzaizone', url: "/test/geolocalizzaizone/", parrentMenuId: 9905 , permit: "ADMIN" },
+  //     // { id: 9908 , order: 9908, title: 'mapserver', url: "/test/mapserver/", parrentMenuId: 9905 , permit: "ADMIN" },
+  //     // // { id: 9909 , order: 9909, title: 'QR-code', url: "/test/qr-code/", parrentMenuId: 9905 , permit: "ADMIN" },
 
-      // // SHARE
-      // { id: 10000, order: 10000, title: 'nas', permit: "ADMIN,PREVIS" },
-      // { id: 10001, order: 10001, title: 'share', url: "/browse/share/", parrentMenuId: 10000, permit: "ADMIN,PREVIS" },
-      // { id: 10010, order: 10010, title: 'prodotti', url: "/browse/prodotti/", parrentMenuId: 10000, permit: "ADMIN,PREVIS" },
+  //     // // SHARE
+  //     // { id: 10000, order: 10000, title: 'nas', permit: "ADMIN,PREVIS" },
+  //     // { id: 10001, order: 10001, title: 'share', url: "/browse/share/", parrentMenuId: 10000, permit: "ADMIN,PREVIS" },
+  //     // { id: 10010, order: 10010, title: 'prodotti', url: "/browse/prodotti/", parrentMenuId: 10000, permit: "ADMIN,PREVIS" },
 
-    ],
-    // skipDuplicates: true, 
-  })
+  //   ],
+  //   // skipDuplicates: true, 
+  // })
 
   // // const deleteLoc = await prisma.localita.deleteMany({})
   // const localita = await prisma.previLocalita.createMany({
@@ -1223,7 +1223,7 @@ async function main() {
   // })
 
 
-  console.log({  roles,  menu })
+  console.log({  roles })
 }
 main()
   .then(async () => {
