@@ -1,9 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "qwik-project-name",
-  "short_name": "Welcome to Qwik",
-  "start_url": ".",
+  "name": "ARPA FVG - atmodesk",
+  "short_name": "atmodesk",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "A Qwik project app."
+  "description": "atmodesk",
+  "screenshot": [
+    {
+      "src": "/screenshot/screenshot1.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "atmodesk"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any"
+    }
+  ]
 }

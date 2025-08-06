@@ -1,0 +1,441 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+  // provider          = "postgresql"
+  // url               = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Email {
+  datetime    DateTime @id @default(now())
+  application String   @default("app")
+  recipient   String
+  subject     String
+  response    String
+  attachment  String   @default("")
+  userId      Int      @default(1)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product     EditProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   Int     @default(0)
+}
+
+model Pdf {
+  datetime DateTime @id @default(now())
+  userId   Int
+  filename String
+  product  EditProduct @relation(fields: [productId], references: [id], onDelete: Cascade)  
+  productId Int
+  template String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ftp {
+  datetime DateTime @id @default(now())
+  userId   Int
+  filename String
+  product  EditProduct @relation(fields: [productId], references: [id], onDelete: Cascade)  
+  productId Int
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  server   String
+  path     String
+  username String
+}
+
+model Version {
+  id          Int      @id @default(autoincrement())
+  version     String   @unique
+  descrizione String
+  data        DateTime @default(now())
+}
+
+model User {
+  id                   Int                  @id @default(autoincrement())
+  email                String?              @unique
+  name                 String?
+  password             String?
+  role                 String               @default("USER")
+  lastlogin            DateTime             @default(now())
+  editextrasondaggioid EditExtrasondaggio[]
+  emailid              Email[]
+  pdfid                Pdf[]
+  gid                  PreviGrafiche[]
+  tid                  PreviTesti[]
+  roleDesc             Role                 @relation(fields: [role], references: [desc])
+  userhistory          UserHistory[]
+  ftp                  Ftp[]
+
+  @@index([email])
+}
+
+model Role {
+  desc   String @id @unique
+  userId User[]
+}
+
+model UserHistory {
+  datetime DateTime @id @default(now())
+  userId   Int
+  route    String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Menu {
+  id            Int    @id @default(autoincrement())
+  title         String
+  url           String @default("#")
+  parrentMenuId Int?
+  svg           String @default("")
+  order         Int?
+  permit        String @default("USER")
+  parentMenu    Menu?  @relation("parentSubCategory", fields: [parrentMenuId], references: [id])
+  subMenu       Menu[] @relation("parentSubCategory")
+}
+
+model DeltaSec {
+  id    Int    @id
+  desc  String
+  order Int    @default(0)
+  class String
+}
+
+model PreviLocalita {
+  id      Int             @id @default(autoincrement())
+  desc    String          @unique
+  stringa String          @default("")
+  order   Int             @default(0)
+  gid     PreviGrafiche[]
+  tid     PreviTesti[]
+}
+
+model PreviLocalitaVerifica {
+  id    Int    @id @default(autoincrement())
+  desc  String @unique
+  order Int    @default(0)
+}
+
+model PreviCielo {
+  id    Int             @id @default(autoincrement())
+  desc  String          @unique
+  order Int             @default(0)
+  gid   PreviGrafiche[]
+}
+
+model PreviGrafiche {
+  storico    DateTime      @id @default(now())
+  dataora    DateTime
+  localitaId Int
+  cieloId    Int
+  userId     Int
+  cielo      PreviCielo    @relation(fields: [cieloId], references: [id])
+  localita   PreviLocalita @relation(fields: [localitaId], references: [id])
+  user       User          @relation(fields: [userId], references: [id])
+
+  @@index([dataora])
+}
+
+model PreviTesti {
+  storico    DateTime      @id @default(now())
+  dataora    DateTime
+  testo      String
+  localitaId Int
+  userId     Int
+  localita   PreviLocalita @relation(fields: [localitaId], references: [id])
+  user       User          @relation(fields: [userId], references: [id])
+
+  @@index([dataora])
+}
+
+model Model {
+  id             Int                  @id @default(autoincrement())
+  name           String?
+  codice         String               @unique
+  descrizione    String?
+  active         Boolean              @default(true)
+  order          Int
+  typeIdId       Int
+  typeId         ModelType            @relation("ModelTypeToModel", fields: [typeIdId], references: [id])
+  modelProbRel   ModelProbRelations[] @relation("ModelProbToModelProbDomainRel")
+  modeldomainrel ModelRelations[]     @relation("ModelToModelDomainRel")
+  ModelRunRel    ModelRunRel[]
+}
+
+model ModelRun {
+  id             Int                  @id @default(autoincrement())
+  name           String
+  ModelRunRel     ModelRunRel[]
+}
+
+model ModelRunRel {
+  id        Int      @id @default(autoincrement())
+  modelId   Int
+  modelRunId Int
+  maxStep   Int
+  model     Model    @relation(fields: [modelId], references: [id])
+  modelRun  ModelRun @relation(fields: [modelRunId], references: [id])
+}
+
+model ModelType {
+  id    Int     @id @default(autoincrement())
+  name  String
+  model Model[] @relation("ModelTypeToModel")
+}
+
+model ModelDomain {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  order          Int
+  modeldomainrel ModelRelations[] @relation("ModelDomainToModelDomainRel")
+}
+
+model ModelLevel {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  order          Int
+  modeldomainrel ModelRelations[] @relation("ModelLevelToModelDomainRel")
+}
+
+model ModelVar {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  order          Int
+  modeldomainrel ModelRelations[] @relation("ModelVarToModelDomainRel")
+}
+
+model ModelVarCum {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  order          Int
+  modeldomainrel ModelRelations[] @relation("ModelVarCumToModelDomainRel")
+}
+
+model ModelStep {
+  id             Int              @id @default(autoincrement())
+  end            Int
+  start          Int
+  step           Int
+  modeldomainrel ModelRelations[] @relation("ModelStepToModelDomainRel")
+}
+
+model ModelRelations {
+  id            Int         @id @default(autoincrement())
+  modelId       Int
+  modelDomainId Int
+  modelLevelId  Int
+  modelVarId    Int
+  modelStepId   Int
+  modelVarCumId Int         @default(0)
+  domains       ModelDomain @relation("ModelDomainToModelDomainRel", fields: [modelDomainId], references: [id])
+  models        Model       @relation("ModelToModelDomainRel", fields: [modelId], references: [id])
+  levels        ModelLevel  @relation("ModelLevelToModelDomainRel", fields: [modelLevelId], references: [id])
+  steps         ModelStep   @relation("ModelStepToModelDomainRel", fields: [modelStepId], references: [id])
+  varsCum       ModelVarCum @relation("ModelVarCumToModelDomainRel", fields: [modelVarCumId], references: [id])
+  vars          ModelVar    @relation("ModelVarToModelDomainRel", fields: [modelVarId], references: [id])
+
+  @@unique([modelId, modelDomainId, modelLevelId, modelVarId, modelStepId, modelVarCumId])
+}
+
+model ModelProbLocation {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  codice String
+  order  Int
+}
+
+model ModelProbLevel {
+  id            Int                  @id @default(autoincrement())
+  name          String               @unique
+  order         Int
+  modelLevelRel ModelProbRelations[] @relation("ModelProbLevelToModelProbRel")
+}
+
+model ModelProbVar {
+  id              Int                  @id @default(autoincrement())
+  name            String               @unique
+  order           Int
+  modelProbVarRel ModelProbRelations[] @relation("ModelProbVarToModelProbRel")
+}
+
+model ModelProbStep {
+  id               Int                  @id @default(autoincrement())
+  start            Int
+  end              Int
+  step             Int
+  modelProbStepRel ModelProbRelations[] @relation("ModelProbStepToModelProbRel")
+}
+
+model ModelProbRelations {
+  id           Int            @id @default(autoincrement())
+  modelId      Int
+  modelLevelId Int
+  modelVarId   Int
+  modelStepId  Int
+  statistic    String         @default("")
+  models       Model          @relation("ModelProbToModelProbDomainRel", fields: [modelId], references: [id])
+  levels       ModelProbLevel @relation("ModelProbLevelToModelProbRel", fields: [modelLevelId], references: [id])
+  steps        ModelProbStep  @relation("ModelProbStepToModelProbRel", fields: [modelStepId], references: [id])
+  vars         ModelProbVar   @relation("ModelProbVarToModelProbRel", fields: [modelVarId], references: [id])
+
+  @@unique([modelId, modelLevelId, modelVarId, modelStepId, statistic])
+}
+
+model Poor {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  active      Boolean       @default(true)
+  PoorPercent PoorPercent[]
+}
+
+model PoorPercent {
+  id     Int  @id @default(autoincrement())
+  poorId Int
+  value  Int
+  poor   Poor @relation(fields: [poorId], references: [id])
+
+  @@unique([poorId, value])
+}
+
+model Radar {
+  id          Int              @id @default(autoincrement())
+  name        String
+  descrizione String
+  ente        String?
+  order       Int?
+  path        String?
+  radarrel    RadarRelations[] @relation("RadarToRadarProd")
+}
+
+model RadarProd {
+  id       Int              @id @default(autoincrement())
+  name     String
+  order    Int
+  radarrel RadarRelations[] @relation("RadarToRadarProd")
+}
+
+model RadarRelations {
+  id          Int       @id @default(autoincrement())
+  radarId     Int
+  radarProdId Int
+  radar       Radar     @relation("RadarToRadarProd", fields: [radarId], references: [id], onDelete: Cascade)
+  radarprod   RadarProd @relation("RadarToRadarProd", fields: [radarProdId], references: [id], onDelete: Cascade)
+
+  @@unique([radarId, radarProdId])
+}
+
+model Satellite {
+  id          Int     @id @default(autoincrement())
+  name        String
+  descrizione String
+  order       Int?
+  path        String?
+}
+
+model SatelliteProd {
+  id          Int    @id @default(autoincrement())
+  name        String
+  order       Int
+  descrizione String @default("")
+}
+
+model Pseudosondaggi {
+  id          Int                      @id @default(autoincrement())
+  name        String
+  descrizione String
+  runs        String  @default("00,12")
+  order       Int?
+  path        String?
+  localita    PseudosondaggiLocalita[] @relation("PseudosondaggiToPseudosondaggiLocalita")
+}
+
+model PseudosondaggiLocalita {
+  id               Int            @id @default(autoincrement())
+  name             String
+  order            Int
+  pseudosondaggiId Int
+  pseudosondaggi   Pseudosondaggi @relation("PseudosondaggiToPseudosondaggiLocalita", fields: [pseudosondaggiId], references: [id], onDelete: Cascade)
+}
+
+model Meteogrammi {
+  id          Int                   @id @default(autoincrement())
+  name        String
+  descrizione String
+  order       Int?
+  path        String?
+  localita    MeteogrammiLocalita[] @relation("MeteogrammiToMeteogrammiLocalita")
+}
+
+model MeteogrammiLocalita {
+  id            Int         @id @default(autoincrement())
+  name          String
+  order         Int
+  meteogrammiId Int
+  meteogrammi   Meteogrammi @relation("MeteogrammiToMeteogrammiLocalita", fields: [meteogrammiId], references: [id], onDelete: Cascade)
+}
+
+model EditProduct {
+  id               Int                @id @default(autoincrement())
+  name             String
+  descrizione      String @default("")
+  archivePath      String @default("")
+  EditEmailProduct EditEmailProduct[]
+  pdf              Pdf[]
+  ftp              Ftp[]
+  email            Email[]
+}
+
+model EditEmail {
+  id               Int                @id @default(autoincrement())
+  email            String
+  EditEmailProduct EditEmailProduct[]
+}
+
+model EditEmailProduct {
+  id        Int         @id @default(autoincrement())
+  productId Int
+  emailId   Int
+  email     EditEmail   @relation(fields: [emailId], references: [id])
+  product   EditProduct @relation(fields: [productId], references: [id])
+
+  @@unique([productId, emailId])
+}
+
+model EditExtrasondaggio {
+  id           Int      @id @default(autoincrement())
+  data         DateTime @default(now())
+  oggetto      String
+  from         String   @default("")
+  userId       Int
+  chiede       String   @default("")
+  firma        String   @default("")
+  responsabile String   @default("")
+  visti        String   @default("")
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+
+
+
+// Monitor Prodotti
+model MonitorProduct {
+  code        String @id
+  descrizione String
+  order       Int?
+  token       String @default("lRs920R413")
+  
+  MonitorProductHistory MonitorProductHistory[]
+  
+}
+
+model MonitorProductHistory {
+  datetime    DateTime  @id @default(now())
+  code        String 
+  date        DateTime
+  run         String     
+  status      Int
+
+  product    MonitorProduct @relation(fields: [code], references: [code], onDelete: Cascade, onUpdate: Cascade)
+
+}

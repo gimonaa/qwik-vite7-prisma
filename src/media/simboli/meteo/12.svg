@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90.809" height="102.977" viewBox="0 0 90.809 102.977">
+  <g id="Raggruppa_529" data-name="Raggruppa 529" transform="translate(-46.209 -1035.06)">
+    <g id="rain_1" transform="translate(78.757 1082.19)">
+      <path id="Tracciato_834" data-name="Tracciato 834" d="M39.814,11.413a18.043,18.043,0,0,0-13.219,5.739A9.652,9.652,0,0,0,9.652,23.477q0,.121,0,.241a12.066,12.066,0,0,0,2.41,23.889H39.814a18.1,18.1,0,0,0,0-36.2ZM50.905,40.6a15.631,15.631,0,0,1-11.092,4.595H12.064a9.653,9.653,0,0,1-1.93-19.111l1.982-.4-.05-2.022c0-.064,0-.125,0-.182a7.239,7.239,0,0,1,12.708-4.743l1.756,2.022L28.356,18.8A15.684,15.684,0,1,1,50.905,40.6Z" transform="translate(0 -11.413)" fill="#fff" stroke="#fff" stroke-width="0.7"/>
+      <path id="Tracciato_835" data-name="Tracciato 835" d="M84.188,354.479a1.206,1.206,0,1,0-2.157-1.078h0l-7.239,14.478h0a1.206,1.206,0,1,0,2.157,1.078h0l7.239-14.478h0Z" transform="translate(-66.219 -314.127)" fill="#fff" stroke="#fff" stroke-width="0.7"/>
+      <path id="Tracciato_836" data-name="Tracciato 836" d="M148.188,354.479a1.206,1.206,0,1,0-2.157-1.078h0l-7.239,14.478h0a1.206,1.206,0,1,0,2.157,1.078h0l7.239-14.478h0Z" transform="translate(-122.98 -314.127)" fill="#fff" stroke="#fff" stroke-width="0.7"/>
+      <path id="Tracciato_837" data-name="Tracciato 837" d="M212.189,354.479a1.206,1.206,0,1,0-2.158-1.078h0l-7.239,14.478h0a1.206,1.206,0,1,0,2.157,1.078h0l7.239-14.478Z" transform="translate(-179.741 -314.127)" fill="#fff" stroke="#fff" stroke-width="0.7"/>
+      <path id="Tracciato_838" data-name="Tracciato 838" d="M275.111,352.733a1.208,1.208,0,0,0-1.08.668h0l-7.238,14.478h0a1.206,1.206,0,1,0,2.158,1.078h0l7.239-14.478h0a1.207,1.207,0,0,0-1.078-1.746Z" transform="translate(-236.502 -314.127)" fill="#fff" stroke="#fff" stroke-width="0.7"/>
+    </g>
+    <g id="Group_1" data-name="Group 1" transform="translate(48.535 1037.386)">
+      <path id="Tracciato_1390" data-name="Tracciato 1390" d="M43.54,73.616A24.75,24.75,0,1,1,73.2,57.169" transform="translate(-9.853 -9.843)" fill="none" stroke="#fff" stroke-width="3.5"/>
+      <line id="Linea_196" data-name="Linea 196" y1="3" x2="10" transform="matrix(0.998, 0.07, -0.07, 0.998, 70.128, 30.226)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+      <line id="Linea_197" data-name="Linea 197" y1="3" x2="10" transform="translate(54.219 11.512) rotate(-41)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+      <line id="Linea_198" data-name="Linea 198" y1="3" x2="10" transform="matrix(0.07, -0.998, 0.998, 0.07, 30.119, 9.976)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+      <line id="Linea_199" data-name="Linea 199" y1="3" x2="10" transform="translate(11.463 25.809) rotate(-131)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+      <line id="Linea_200" data-name="Linea 200" y1="3" x2="10" transform="matrix(-0.998, -0.07, 0.07, -0.998, 9.976, 49.9)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+      <line id="Linea_201" data-name="Linea 201" y1="3" x2="10" transform="translate(25.748 68.294) rotate(139)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+    </g>
+  </g>
+</svg>
